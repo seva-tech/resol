@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Рисолат, тебе письмо</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d0a4a;--gold:#ffd966;--paper:#fbe9dc;--ink:#2a2347;--purple:#b48be0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(ellipse at 50% 30%,#241c78,var(--navy) 60%,#05031f);background-color:#0d0a4a;color:#fff;font-family:'Cormorant Garamond',Georgia,serif;overflow:hidden}
+.milky{position:fixed;inset:-20%;background:linear-gradient(115deg,transparent 35%,rgba(190,170,255,.28) 50%,transparent 65%);filter:blur(30px);pointer-events:none}
+.star{position:fixed;background:#fff;border-radius:50%;pointer-events:none;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.15}}
+.screen{position:absolute;inset:0;padding:env(safe-area-inset-top,0px) 22px env(safe-area-inset-bottom,0px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;pointer-events:none;transition:opacity .9s}
+.screen.on{opacity:1;pointer-events:auto}
+h1{font-size:30px;margin:0 0 12px;line-height:1.15}
+.script{font-family:'Marck Script',cursive;color:#d9c8ff;font-size:24px;margin:0 0 26px}
+input{width:min(320px,86vw);padding:16px;border-radius:30px;border:1px solid #ffffff44;background:#2a2468;color:#fff;font:600 18px 'Cormorant Garamond',serif;text-align:center;outline:none;margin-bottom:14px}
+input::placeholder{color:#ffffff77}
+.btn{width:min(320px,86vw);padding:16px;border:0;border-radius:30px;background:var(--gold);color:#4a3a14;font:600 18px 'Cormorant Garamond',serif;box-shadow:0 0 30px #ffd96655;cursor:pointer}
+.shake{animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.intro .script{font-size:30px;margin:0 0 6px}.intro h1{font-size:34px}
+/* envelope */
+.env{position:relative;width:min(300px,80vw);aspect-ratio:1.55;cursor:pointer;perspective:900px;animation:fl 4s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.env div{position:absolute;inset:0}
+.e-body{background:#f1e4d3;border-radius:6px;box-shadow:0 18px 50px rgba(150,120,255,.35)}
+.e-l{background:#f7ecdd;clip-path:polygon(0 0,52% 52%,0 100%)}
+.e-r{background:#f7ecdd;clip-path:polygon(100% 0,48% 52%,100% 100%)}
+.e-b{background:#fff6ea;clip-path:polygon(0 100%,50% 48%,100% 100%)}
+.e-f{background:#f4e8d8;clip-path:polygon(0 0,100% 0,50% 58%);transform-origin:top;transition:transform .8s;border-radius:6px 6px 0 0}
+.env.go .e-f{transform:rotateX(180deg)}
+.seal{inset:auto!important;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d3b4f5,#9a6fd0);color:#6b45a0;font:700 24px 'Marck Script',cursive;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px #0006;transition:opacity .4s}
+.env.go .seal{opacity:0}
+.to{position:absolute;inset:auto!important;left:0;right:0;bottom:12%;text-align:center;font:22px 'Marck Script',cursive;color:#5d5578}
+.open-hint{font:22px 'Marck Script',cursive;color:#e4d9ff;margin-top:30px}
+/* letter */
+.card{width:min(380px,92vw);background:var(--paper);color:var(--ink);border-radius:20px;padding:26px 24px;text-align:left;font:21px/1.5 'Marck Script',cursive;min-height:48vh;max-height:68vh;overflow:auto;box-shadow:0 20px 60px #0008;margin-bottom:18px}
+.card .t{color:#a47bd6;font-size:19px;margin-bottom:16px}
+.card p{margin:0 0 14px;opacity:0;transform:translateY(6px);animation:in .8s forwards}
+@keyframes in{to{opacity:1;transform:none}}
+.snd{position:fixed;right:14px;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:9;background:#ffffff18;border:1px solid #ffffff33;color:#fff;width:40px;height:40px;border-radius:50%;font-size:18px;cursor:pointer}
+
+#s-final{background:linear-gradient(#000 45%,#1a0b33 80%,#4a2166);justify-content:center}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.fin{position:relative;z-index:2;font-family:'Marck Script',cursive;color:#ffe9a8;text-shadow:0 0 18px #ffcf5a99;line-height:1.35}
+.fin .fl{opacity:0;font-size:30px;margin:0 0 14px;animation:in 1.6s forwards}
+.fin .fl.big{font-size:38px;margin-top:26px;color:#fff1bf;text-shadow:0 0 26px #ffcf5acc}
+.fin .fl.s{font-size:22px;color:#fff3cf}
+.hh{position:absolute;bottom:-40px;z-index:1;pointer-events:none;animation:up 8s linear forwards}
+@keyframes up{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+.again{position:absolute;z-index:3;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);background:none;border:0;color:#ffffff88;font:20px 'Marck Script',cursive;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="milky"></div>
+<button class="snd" id="snd" aria-label="Звук">♪</button>
+
+<section class="screen on" id="s-lock">
+  <h1>Эта эмоция закрыта словом</h1>
+  <p class="script">кого я больше всех люблю</p>
+  <input id="ans" placeholder="введи ответ" autocomplete="off">
+  <button class="btn" id="openBtn">Открыть</button>
+</section>
+
+<section class="screen intro" id="s-intro">
+  <p class="script">Рисолат,</p>
+  <h1>тебе письмо</h1>
+</section>
+
+<section class="screen" id="s-env">
+  <div class="env" id="env">
+    <div class="e-body"></div><div class="e-l"></div><div class="e-r"></div><div class="e-b"></div><div class="e-f"></div>
+    <div class="seal">Р</div><div class="to">Рисолат</div>
+  </div>
+  <p class="open-hint">открой это</p>
+</section>
+
+<section class="screen" id="s-letter">
+  <div class="card" id="card"></div>
+  <button class="btn" id="next">Дальше ♡</button>
+</section>
+
+<section class="screen" id="s-final">
+  <canvas id="cv"></canvas>
+  <div class="fin" id="fin">
+    <p class="fl big" style="animation-delay:1.5s">счастье — это ты ✨</p>
+  </div>
+  <button class="again" id="again">прочитать сначала</button>
+</section>
+
+<script>
+/* ===== ЗДЕСЬ МЕНЯЙТЕ ===== */
+const ANSWERS=['рисолат','risolat']; // правильные ответы
+const NAME='Рисолат';
+const PAGES=[
+ ['Я просто хочу, чтобы ты знала, как сильно я тебя люблю.',
+  'Ты для меня не просто сестра, а очень родной и дорогой человек.',
+  'Мне так тепло от того, что ты есть в моей жизни.'],
+ ['Я ценю каждый наш момент, наши разговоры, смех и даже обычные мелочи.',
+  'Очень хочу, чтобы ты всегда была счастлива, и чтобы рядом с тобой были только люди, которые искренне тебя любят.'],
+ ['Я тебя очень-очень люблю 🤍']
+];
+/* ========================= */
+const $=id=>document.getElementById(id);
+const show=id=>{document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on')};
+// звёзды
+for(let i=0;i<70;i++){const s=document.createElement('div');s.className='star';const z=Math.random()*2.5+.8;s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*3}s;opacity:${.4+Math.random()*.6}`;document.body.prepend(s)}
+// музыка (шкатулка)
+let ctx=null,on=true,timer=null,st=0;
+const F={C4:261.6,D4:293.7,E4:329.6,G4:392,A4:440,C5:523.3,D5:587.3,E5:659.3,G5:784};
+const seq=['E5','D5','C5','G4','A4','C5','D5','A4','E5','G5','E5','D5','C5','A4','G4','D4'];
+function tone(f,t){const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.16,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+1.6);o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+1.6)}
+function music(){try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();ctx.resume();clearInterval(timer);timer=setInterval(()=>{if(on)tone(F[seq[st++%seq.length]],ctx.currentTime)},480)}catch(e){}}
+$('snd').onclick=()=>{on=!on;$('snd').style.opacity=on?1:.4;if(on&&ctx)music();else clearInterval(timer)};
+// замок
+function tryOpen(){
+  const v=$('ans').value.trim().toLowerCase();
+  if(ANSWERS.some(a=>v.includes(a))){
+    music();show('s-intro');setTimeout(()=>show('s-env'),2800);
+  }else{const i=$('ans');i.classList.remove('shake');void i.offsetWidth;i.classList.add('shake');i.value='';i.placeholder='попробуй ещё раз'}
+}
+$('openBtn').onclick=tryOpen;$('ans').onkeydown=e=>{if(e.key==='Enter')tryOpen()};
+// конверт
+let page=0;
+function render(){
+  const p=PAGES[page];
+  $('card').innerHTML=`<div class="t">${NAME}, это тебе</div>`+(page===0?`<p style="animation-delay:.1s">${NAME}.</p>`:'')+p.map((t,i)=>`<p style="animation-delay:${.4+i*.9}s">${t}</p>`).join('');
+  $('card').scrollTop=0;
+  
+}
+$('env').onclick=()=>{$('env').classList.add('go');setTimeout(()=>{page=0;render();show('s-letter')},1000)};
+$('next').onclick=()=>{if(page<PAGES.length-1){page++;render()}else startFinal()};
+// финал: звёзды, созвездия, сердечки
+const cv=$('cv'),cx=cv.getContext('2d');let stars=[],edges=[],raf=0,hi=0;
+function startFinal(){
+  show('s-final');cv.width=innerWidth;cv.height=innerHeight;stars=[];edges=[];
+  for(let i=0;i<130;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height*.95,r:.6+Math.random()*1.6,p:Math.random()*6});
+  for(let i=0;i<stars.length;i++)for(let j=i+1;j<stars.length;j++){if(Math.hypot(stars[i].x-stars[j].x,stars[i].y-stars[j].y)<85&&Math.random()<.3&&edges.length<70)edges.push([i,j])}
+  const loop=t=>{cx.clearRect(0,0,cv.width,cv.height);cx.strokeStyle='rgba(255,255,255,.14)';cx.lineWidth=1;
+    edges.forEach(([a,b])=>{cx.beginPath();cx.moveTo(stars[a].x,stars[a].y);cx.lineTo(stars[b].x,stars[b].y);cx.stroke()});
+    stars.forEach(o=>{cx.globalAlpha=.55+.45*Math.sin(t/700+o.p);cx.fillStyle='#fff';cx.beginPath();cx.arc(o.x,o.y,o.r,0,7);cx.fill()});cx.globalAlpha=1;raf=requestAnimationFrame(loop)};
+  cancelAnimationFrame(raf);raf=requestAnimationFrame(loop);
+  const E=['💛','🩷','🤍','🩷','💛'];clearInterval(hi);
+  hi=setInterval(()=>{const h=document.createElement('span');h.className='hh';h.textContent=E[Math.floor(Math.random()*E.length)];h.style.left=Math.random()*92+'%';h.style.fontSize=(20+Math.random()*22)+'px';$('s-final').appendChild(h);setTimeout(()=>h.remove(),8200)},420);
+}
+$('again').onclick=()=>{clearInterval(hi);cancelAnimationFrame(raf);page=0;render();show('s-letter')};
+</script>
+</body>
+</html>
